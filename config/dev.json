@@ -1,0 +1,9 @@
+{
+    "Server": {
+      "headerSize": "500mb",
+      "port": 5000
+    },
+"DefaultRegion": "localhost",
+"AWSDynamoUrl": "http://dynamodb:8000"
+
+}
