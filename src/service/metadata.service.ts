@@ -1,7 +1,6 @@
 import { Request } from 'express';
 import aws = require('aws-sdk');
 import { v4 as uuidv4 } from 'uuid';
-const Q = require('q');
 import logger from '@src/logger';
 const {
   defaultRegion,
@@ -20,7 +19,7 @@ aws.config.update({
 });
 
 const docClient = new aws.DynamoDB.DocumentClient();
-
+const id = uuidv4();
 export class MetadataProvider {
   private request;
 
@@ -29,18 +28,15 @@ export class MetadataProvider {
   }
   
   async uploadtMetadata(): Promise<any> {
-    const deffered = Q.defer();
     if (this.request && this.request.query) {
       const imageMetadata = this.request.file;
       const label = this.request.query;
-
       const data = {
-        id: uuidv4(),
+        id: id,
         ...imageMetadata,
         ...label,
         username: username,
       };
-      logger.info(data);
       var tableName = dynamodbTableName;
       var dbParam = {
         TableName: tableName,
@@ -50,13 +46,11 @@ export class MetadataProvider {
       docClient.put(dbParam, (err, data) => {
         if (err) {
           logger.error(err);
-          deffered.reject(err);
         } else {
-          logger.info('successfully added the image metadata');
-          deffered.resolve(data);
+          logger.info(`successfully added the image metadata for id: ${id}`);
         }
       });
     }
-    return deffered.promise;
+   
   }
 }

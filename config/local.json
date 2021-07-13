@@ -1,8 +1,0 @@
-{
-    "Server": {
-      "headerSize": "500mb",
-      "port": 4500
-    },
-"DefaultRegion": "ap-southeast-2",
-"AWSDynamoUrl": "http://localhost:8000"
-}

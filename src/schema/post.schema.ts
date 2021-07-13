@@ -1,13 +1,13 @@
 import { object, string, ref } from "yup";
 
 
-const label = {
+const file = {
     params: object({
-      label: string().required("label is required"),
+      file: string().required("label is required"),
     }),
   };
 
   export const createPostSchema = object({
-    ...label,
+    ...file,
     
   });
