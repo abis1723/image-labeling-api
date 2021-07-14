@@ -1,8 +1,8 @@
 import express from 'express';
-import logger from '../logger';
+import log from '../logger';
 
 export async function apiKeyValidate(req: express.Request | any, res: express.Response | any, next: () => void) {
-   logger.info(`authorize req with api key, ${req.originalUrl}`);
+   log.info(`authorize req with api key, ${req.originalUrl}`);
   try {
     if (!req.headers['x-api-key']) {
       res.status(401).send('headers x-api-key is missing');
@@ -11,7 +11,7 @@ export async function apiKeyValidate(req: express.Request | any, res: express.Re
     }
     next();
   } catch (error) {
-    logger.error('authorize error', JSON.stringify(error));
+    log.error('authorize error', JSON.stringify(error));
     res.status(401).end();
   }
 

@@ -19,7 +19,7 @@ aws.config.update({
 });
 
 const docClient = new aws.DynamoDB.DocumentClient();
-const id = uuidv4();
+let id = uuidv4();
 export class MetadataProvider {
   private request;
 
@@ -28,9 +28,10 @@ export class MetadataProvider {
   }
   
   async uploadtMetadata(): Promise<any> {
-    if (this.request && this.request.query) {
+    if (this.request.file && this.request.query) {
       const imageMetadata = this.request.file;
       const label = this.request.query;
+     
       const data = {
         id: id,
         ...imageMetadata,
@@ -46,6 +47,7 @@ export class MetadataProvider {
       docClient.put(dbParam, (err, data) => {
         if (err) {
           logger.error(err);
+          return;
         } else {
           logger.info(`successfully added the image metadata for id: ${id}`);
         }

@@ -1,21 +1,20 @@
 import express from 'express';
 const config = require('config');
-import logger from '@src/logger';
-import routes from './routes';
+import log from '@src/logger';
+import routes from '@src/routes';
 import * as apiKeyValidator from '@src/middlewares/apiKeyValidator';
 import { CreateTableUtils } from '@src/utils/createtable.utils';
-import {}
 const createTableUtils = new CreateTableUtils();
 const serverConfig = config.get('Server');
 const PORT = serverConfig.port;
 
 process.on('uncaughtException', error => {
-  logger.error(error.message);
+  log.error(error.message);
   process.exit(1);
 });
 
 process.on('unhandledRejection', error => {
-  logger.error(error);
+  log.error(error);
   process.exit(1);
 });
 
@@ -26,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(apiKeyValidator.apiKeyValidate.bind(apiKeyValidator));
 app.listen(PORT, () => {
-  logger.info(`Application started at port ${PORT} and NODE_ENV ${process.env.NODE_ENV}`);
+  log.info(`Application started at port ${PORT} and NODE_ENV ${process.env.NODE_ENV}`);
   createTableUtils.createTable();
   routes(app);
 });

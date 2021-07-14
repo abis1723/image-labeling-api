@@ -10,6 +10,9 @@
 * dynamoDB is used to store metadata 
 * Mocha is used for unit testing
 * For local access of dynamodb we need to install dynamodb local. I created docker-compose file which will install the image/container locally
+* image id is auto generated uuid, I used `uuidv4` npm
+* username - using `os` npm, I fetch the OS login name
+* for the security I am using x-api-key
 
 ## Setup
 We need the following component to get up and running the project:
@@ -49,9 +52,9 @@ Once the `dynamodb` and  `imaging-app` docker containers are up and running. The
     * Body (`form-data`)
         `file` = <Option to select an image>
 
-# GET http://localhost:5000/api/v1/imagelabels id=<UUID>
+# GET http://localhost:5000/api/v1/imagelabels?diseaseType=covid-19
     * Headers 
-    `contenet-type` = `application/json`
-    `x-api-key` = `3c98a900-c0d9-4fbe-b3fb-2eb52d545340`
+        `contenet-type` = `application/json`
+        `x-api-key` = `3c98a900-c0d9-4fbe-b3fb-2eb52d545340`
     
 # source code repository: https://github.com/abis1723/image-labeling-api

@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import { get } from 'lodash';
-import logger from '@src/logger';
+import log from '@src/logger';
 
 import { uploadImage } from '@src/service/image.service';
 import { MetadataProvider } from '@src/service/metadata.service';
 import { getImageMetaData } from '@src/service/get.services';
+
 
 export async function createPostHandler(req: Request, res: Response) {
   const metadataProvider = new MetadataProvider(req);
@@ -14,14 +15,14 @@ export async function createPostHandler(req: Request, res: Response) {
     try {
       if (err) {
         return res.status(422).send({
-          errors: [{ title: 'image upload error', message: err.message }],
+          errors: [{ status: 'image upload error', message: err.message }],
         });
       }
       await metadataProvider.uploadtMetadata();
       const file = req.file;
       if (!file) {
         const message = 'Please upload file';
-        logger.info(message);
+        log.error(message);
         return res.status(400).json({
           status: 'failed',
           code: '400',
@@ -29,10 +30,10 @@ export async function createPostHandler(req: Request, res: Response) {
         });
       }
       message = 'image uploaded successfully';
-      logger.info(message);
+      log.info(message);
       return res.status(201).send(message);
     } catch (error) {
-      logger.error(error.message);
+      log.error(error.message);
       return res.status(500).json({
         status: 'failed',
         code: '500',
@@ -43,10 +44,10 @@ export async function createPostHandler(req: Request, res: Response) {
 }
 
 export async function getMetadataHandler(req: Request, res: Response) {
-  const imageId = get(req, 'query.id');
+  const diseaseType = get(req, 'query.diseaseType');
 
   try {
-    const result = await getImageMetaData(imageId);
+    const result = await getImageMetaData(diseaseType);
     if (!result) {
       return res.status(404).json({
         status: 'failed',
@@ -56,7 +57,7 @@ export async function getMetadataHandler(req: Request, res: Response) {
     }
     return res.status(200).send(result);
   } catch (error) {
-    logger.error(error.message);
+    log.error(error.message);
       return res.status(500).json({
         status: 'failed',
         code: '500',

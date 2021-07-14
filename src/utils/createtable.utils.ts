@@ -1,5 +1,5 @@
 import aws = require('aws-sdk');
-import logger from '@src/logger';
+import log from '@src/logger';
 const { defaultRegion, awsDynamoUrl, dynamodbTableName } = require('@src/config');
 
 aws.config.update({
@@ -22,6 +22,10 @@ export class CreateTableUtils {
           {
             AttributeName: 'id',
             AttributeType: 'S',
+          },
+          {
+            AttributeName: 'diseasetype',
+            AttributeType: 'S',
           }
         ],
         KeySchema: [
@@ -30,6 +34,22 @@ export class CreateTableUtils {
             KeyType: 'HASH',
           }
         ],
+        
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'DiseaseTypeIndex',
+          KeySchema: [
+            { AttributeName: 'diseasetype', KeyType: "HASH" },
+          ],
+          Projection: {
+            ProjectionType: 'ALL'
+          },
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1
+          }
+        }
+      ],
         ProvisionedThroughput: {
           ReadCapacityUnits: 5,
           WriteCapacityUnits: 5,
@@ -37,8 +57,8 @@ export class CreateTableUtils {
         TableName: dynamodbTableName,
       };
       dynamodb.createTable(params, (err, data) => {
-        if (err) logger.error(err.stack);
-        else logger.info(data);
+        if (err) log.error(err.stack);
+        else log.info(data);
       });
     }
   }
