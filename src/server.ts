@@ -4,7 +4,7 @@ import logger from '@src/logger';
 import routes from './routes';
 import * as apiKeyValidator from '@src/middlewares/apiKeyValidator';
 import { CreateTableUtils } from '@src/utils/createtable.utils';
-
+import {}
 const createTableUtils = new CreateTableUtils();
 const serverConfig = config.get('Server');
 const PORT = serverConfig.port;

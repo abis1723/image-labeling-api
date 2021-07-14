@@ -9,11 +9,8 @@
     "dev": "nodemon",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo",
     "start": "yarn build && node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/src/server.js",
-    "build": " yarn run clean && tsc -p tsconfig.json",
-    "test": "mocha -r ts-node/register **/__tests__/*.spec.ts",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "clear_jest": "jest --clearCache"
+    "build": "yarn run clean && tsc -p tsconfig.json",
+    "test": "mocha -r ts-node/register **/__tests__/*.spec.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.78",
