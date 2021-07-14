@@ -18,7 +18,6 @@ const docClient = new aws.DynamoDB.DocumentClient();
 
 export async function getImageMetaData(diseaseType: String) {
   try {
-    console.log(diseaseType);
     var params = {
       TableName: dynamodbTableName,
       IndexName: 'DiseaseTypeIndex',

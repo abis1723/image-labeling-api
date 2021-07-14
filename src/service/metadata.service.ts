@@ -19,7 +19,6 @@ aws.config.update({
 });
 
 const docClient = new aws.DynamoDB.DocumentClient();
-let id = uuidv4();
 export class MetadataProvider {
   private request;
 
@@ -33,10 +32,11 @@ export class MetadataProvider {
       const label = this.request.query;
      
       const data = {
-        id: id,
+        id: uuidv4(),
         ...imageMetadata,
         ...label,
         username: username,
+        datecreated: Date.now()
       };
       var tableName = dynamodbTableName;
       var dbParam = {
@@ -49,7 +49,7 @@ export class MetadataProvider {
           logger.error(err);
           return;
         } else {
-          logger.info(`successfully added the image metadata for id: ${id}`);
+          logger.info('uccessfully added the image metadata');
         }
       });
     }

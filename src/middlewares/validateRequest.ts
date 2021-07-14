@@ -7,7 +7,7 @@ export const checkGetParams = (
   next: NextFunction
 ) => {
   if (!req.query.diseaseType) {
-    throw new HTTP400Error("Missing diseasetype parameter");
+    throw new HTTP400Error("Missing diseaseType parameter");
   } else {
     next();
   }
