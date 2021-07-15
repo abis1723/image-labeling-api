@@ -1,4 +1,4 @@
-export interface IFile {
+export interface File {
     name: string;
     size: number;
     type: string;
@@ -6,21 +6,21 @@ export interface IFile {
     content: ArrayBuffer;
   }
 
-  export interface IUploadedFile {
+  export interface UploadedFile {
     path: string;
   }
 
-  export interface IImageMetaData {
+  export interface ImageMetaData {
     id: string;
-    fieldname: string;
     originalname: string;
     encoding: string;
     mimetype: string;
-    destination: string;
     filename: string;
-    path: string;
+    bucket: string
+    location: string;
+    key: string,
     size: Number;
-    label: string;
+    diseasetype: string;
     username: string;
   }
 

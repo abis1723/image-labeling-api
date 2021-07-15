@@ -1,9 +1,10 @@
 import express from 'express';
-const config = require('config');
 import log from '@src/logger';
 import routes from '@src/routes';
 import * as apiKeyValidator from '@src/middlewares/apiKeyValidator';
 import { CreateTableUtils } from '@src/utils/createtable.utils';
+
+const config = require('config');
 const createTableUtils = new CreateTableUtils();
 const serverConfig = config.get('Server');
 const PORT = serverConfig.port;

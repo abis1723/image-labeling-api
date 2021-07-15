@@ -9,7 +9,7 @@ describe('apiKeyValidate', function () {
   let apiSecretStub: any;
   it('should return successfully', async function () {
     apiSecretStub = sinon.stub().callsFake(async () => {
-      return Promise.resolve('test1234');
+      return 'test1234';
     });
     rewiredValidator.__set__('getApiSecret', apiSecretStub);
     const apiKeyValidate = rewiredValidator.__get__('apiKeyValidate');
@@ -27,7 +27,7 @@ describe('apiKeyValidate', function () {
   });
   it('should return from function as path not mentioned', async function () {
     apiSecretStub = sinon.stub().callsFake(async () => {
-      return Promise.reject('error');
+      return 'error';
     });
     rewiredValidator.__set__('getApiSecret', apiSecretStub);
     const apiKeyValidate = rewiredValidator.__get__('apiKeyValidate');
@@ -44,7 +44,7 @@ describe('apiKeyValidate', function () {
   });
   it('should return error 401 as wrong api key', async function () {
     apiSecretStub = sinon.stub().callsFake(async () => {
-      return Promise.resolve('abc');
+      return 'abc';
     });
     rewiredValidator.__set__('getApiSecret', apiSecretStub);
     const apiKeyValidate = rewiredValidator.__get__('apiKeyValidate');
@@ -64,7 +64,7 @@ describe('apiKeyValidate', function () {
   });
   it('should return error 401 as no api key', async function () {
     apiSecretStub = sinon.stub().callsFake(async () => {
-      return Promise.resolve('abc');
+      return 'abc';
     });
     rewiredValidator.__set__('getApiSecret', apiSecretStub);
     const apiKeyValidate = rewiredValidator.__get__('apiKeyValidate');

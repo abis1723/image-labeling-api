@@ -4,5 +4,7 @@
       "port": 4500
     },
 "DefaultRegion": "ap-southeast-2",
-"AWSDynamoUrl": "http://localhost:8000"
+"AWSDynamoUrl": "http://localhost:8000",
+"MinioUrl": "http://localhost:9000",
+"ImageBucketName": "annaliseimagebucket"
 }

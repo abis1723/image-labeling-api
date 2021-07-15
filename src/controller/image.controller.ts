@@ -1,19 +1,18 @@
 import { Request, Response } from 'express';
 import { get } from 'lodash';
-import log from '@src/logger';
-
-import { uploadImage } from '@src/service/image.service';
 import { MetadataProvider } from '@src/service/metadata.service';
 import { getImageMetaData } from '@src/service/get.services';
-
+import { uploadtoS3 } from '@src/service/imageS3.service';
+import log from '@src/logger';
 
 export async function createPostHandler(req: Request, res: Response) {
   const metadataProvider = new MetadataProvider(req);
   let message: String = '';
 
-  uploadImage(req, res, async err => {
+  uploadtoS3(req, res, async err => {
     try {
       if (err) {
+        log.error(err);
         return res.status(422).send({
           errors: [{ status: 'image upload error', message: err.message }],
         });

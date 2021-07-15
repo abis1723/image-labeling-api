@@ -1,14 +1,14 @@
 import aws = require('aws-sdk');
 import log from '@src/logger';
-const { defaultRegion, awsDynamoUrl, dynamodbTableName } = require('@src/config');
+import { defaultRegion, awsDynamoUrl, dynamodbTableName, awsAccessKeyId, awsSecretAccessKey } from '@src/config';
 
 aws.config.update({
   region: defaultRegion,
   dynamodb: {
     endpoint: awsDynamoUrl,
   },
-  accessKeyId: 'fakeid',
-  secretAccessKey: 'fakekey',
+  accessKeyId: awsAccessKeyId,
+  secretAccessKey: awsSecretAccessKey,
 });
 
 const dynamodb = new aws.DynamoDB();

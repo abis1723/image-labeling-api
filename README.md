@@ -1,6 +1,6 @@
 # image-labeling-api
 
-* This project upload image with labels, currently upload the image in a local folder(uploads) and the future implemention will be in S3 bucket.
+* This project upload image with labels, I have used minio docker image which has the S3 like functions to upload images.
 
 * The image metadata will be stored in dynamodb table with unique id. I used dynamodb local in a docker image.
 
@@ -10,6 +10,7 @@
 * dynamoDB is used to store metadata 
 * Mocha is used for unit testing
 * For local access of dynamodb we need to install dynamodb local. I created docker-compose file which will install the image/container locally
+* For local access minio, we also need to install minio docker image/container
 * image id is auto generated uuid, I used `uuidv4` npm
 * username - using `os` npm, which fetch the OS login name
 * for the security I am using x-api-key, currently hardcoded but we in future we can use AWS SM
@@ -33,7 +34,8 @@ The bellow commands run the application with various options
 * `yarn start` - run the project in complied code
 * `yarn test` - run the test cases
 
-Once the application is built we need to run the `docker-compose up` to setup the dynamodb local in a docker image which is a prerequisite for this app. Otherwise we will get the error message eg.`Inaccessible host: localhost. This service may not be available in the ap-southeast-2' region.`
+Once the application is built we need to run the `docker-compose build --no-cache --pull` to setup the dynamodb local in a docker image which is a prerequisite for this app. Otherwise we will get the error message eg.`Inaccessible host: localhost. This service may not be available in the ap-southeast-2' region.`
+
 
 Once the `dynamodb` and  `imaging-app` docker containers are up and running. The `imaging-app` will check the dynamodb container for the `image_labeling_metadata` dynamodb table, if the table is not exist, it will create a new one.
 

@@ -1,17 +1,14 @@
-import { Request } from 'express';
 import aws = require('aws-sdk');
 import log from '@src/logger';
-
-const { defaultRegion, awsDynamoUrl, dynamodbTableName } = require('@src/config');
-const username = require('os').userInfo().username;
+import { defaultRegion, awsDynamoUrl, dynamodbTableName, awsAccessKeyId, awsSecretAccessKey } from '@src/config';
 
 aws.config.update({
   region: defaultRegion,
   dynamodb: {
     endpoint: awsDynamoUrl,
   },
-  accessKeyId: 'fakeid',
-  secretAccessKey: 'fakekey',
+  accessKeyId: awsAccessKeyId,
+  secretAccessKey: awsSecretAccessKey,
 });
 
 const docClient = new aws.DynamoDB.DocumentClient();
@@ -26,13 +23,13 @@ export async function getImageMetaData(diseaseType: String) {
         '#diseasetype': 'diseasetype',
       },
       ExpressionAttributeValues: {
-        ':v_diseasetype': diseaseType
+        ':v_diseasetype': diseaseType,
       },
     };
     const result = await docClient.scan(params).promise();
-    log.info(JSON.stringify(result));
     return result;
   } catch (error) {
     log.info(error);
   }
 }
+
