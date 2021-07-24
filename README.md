@@ -51,14 +51,14 @@
 # The API end-points
     * we can access the api via localhost:4500(locally running) or via localhost:5000(i frunning from docker container)
 # Swagger endpoint
-    * http://localhost:4500/docs from the docker
+    * http://localhost:5000/docs from the docker
     * http://localhost:4500/docs from the local machine
     * set the Authorization(x-api-key) - 3c98a900-c0d9-4fbe-b3fb-2eb52d545340
 # POST 
-   curl --location --request GET 'http://localhost:6000/healthcheck' \
+   curl --location --request POST 'http://localhost:5000/api/v1/imagelabels?diseasetype=covid-19' \
 --header 'Content-Type: multipart/form-data' \
 --header 'x-api-key: 3c98a900-c0d9-4fbe-b3fb-2eb52d545340' \
---form 'file=@"/Users/abiswas/akhil/test/image-labeling-api/image/chest-x-ray.jpeg"'
+--form 'file=@"/Users/abiswas/akhil/electricity plan.png"'
 
 # GET 
 curl --location --request GET 'http://localhost:5000/api/v1/imagelabels?diseaseType=covid-19' \
