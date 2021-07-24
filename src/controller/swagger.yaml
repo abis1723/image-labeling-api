@@ -1,9 +1,8 @@
 swagger: '2.0'
 info:
-  description: API doc
+  description: API Documentation
   version: 1.0.0
   title: Image labeling API
-  # termsOfService: 'blah'
   contact:
     email: admin@akhilbiswas.com
   license:
@@ -12,11 +11,10 @@ info:
 
 basePath: /api/v1/
 tags:
-  - name: Search
-    description: dasdasd
+  - name: Image Labeling System
+    description: This APIs saved the images and search them
 schemes:
   - http
-  - https
 securityDefinitions:
   APIKeyHeader:
     type: apiKey
@@ -50,14 +48,14 @@ paths:
       tags:
         - Image label
       operationId: createPostHandler
-      summary: Uploads a file.
+      summary: Uploads a image file
       consumes:
         - multipart/form-data
       parameters:
         - in: formData
           name: file
           type: file
-          description: The file to upload.
+          description: The image file to upload.
         - name: diseasetype
           in: query
           required: true
