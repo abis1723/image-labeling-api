@@ -1,8 +1,8 @@
 import express from 'express';
 import log from '@src/logger';
 import routes from '@src/routes';
-import * as apiKeyValidator from '@src/middlewares/apiKeyValidator';
 import { CreateTableUtils } from '@src/utils/createtable.utils';
+import {swaggerUi, swaggerDocument} from '@src/controller/swagger.controller';
 
 const config = require('config');
 const createTableUtils = new CreateTableUtils();
@@ -19,12 +19,12 @@ process.on('unhandledRejection', error => {
   process.exit(1);
 });
 
-
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(apiKeyValidator.apiKeyValidate.bind(apiKeyValidator));
+app.enable('trust proxy');
+ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(PORT, () => {
   log.info(`Application started at port ${PORT} and NODE_ENV ${process.env.NODE_ENV}`);
   createTableUtils.createTable();

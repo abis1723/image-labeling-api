@@ -50,18 +50,21 @@
 
 # The API end-points
     * we can access the api via localhost:4500(locally running) or via localhost:5000(i frunning from docker container)
-# POST http://localhost:5000/api/v1/imagelabels/diseasetype=covid-19
-    * Headers 
-        `contenet-type` = `multipart/form-data`
-        `x-api-key` = `3c98a900-c0d9-4fbe-b3fb-2eb52d545340`, I hard coded the key for this time but future implementation will be with AWS secret manager
+# Swagger endpoint
+    * http://localhost:4500/docs from the docker
+    * http://localhost:4500/docs from the local machine
+    * set the Authorization(x-api-key) - 3c98a900-c0d9-4fbe-b3fb-2eb52d545340
+# POST 
+   curl --location --request GET 'http://localhost:6000/healthcheck' \
+--header 'Content-Type: multipart/form-data' \
+--header 'x-api-key: 3c98a900-c0d9-4fbe-b3fb-2eb52d545340' \
+--form 'file=@"/Users/abiswas/akhil/test/image-labeling-api/image/chest-x-ray.jpeg"'
 
-    * Body (`form-data`)
-        `file` = <Option to select an image>
-
-# GET http://localhost:5000/api/v1/imagelabels?diseaseType=covid-19
-    * Headers 
-        `contenet-type` = `application/json`
-        `x-api-key` = `3c98a900-c0d9-4fbe-b3fb-2eb52d545340`
+# GET 
+curl --location --request GET 'http://localhost:5000/api/v1/imagelabels?diseaseType=covid-19' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: 3c98a900-c0d9-4fbe-b3fb-2eb52d545340' \
+--data-raw ''
 
     
 # Source code repository: https://github.com/abis1723/image-labeling-api

@@ -1,11 +1,10 @@
 {
-    "Server": {
-      "headerSize": "500mb",
-      "port": 5000
-    },
-"DefaultRegion": "ap-southeast-2",
-"AWSDynamoUrl": "http://dynamodb:8000",
-"MinioUrl": "http://minio:9000",
-"ImageBucketName": "annaliseimagebucket"
-
+  "Server": {
+    "headerSize": "500mb",
+    "port": 5000
+  },
+  "DefaultRegion": "ap-southeast-2",
+  "AWSDynamoUrl": "http://dynamodb:8000",
+  "MinioUrl": "http://minio:9000",
+  "ImageBucketName": "annaliseimagebucket"
 }

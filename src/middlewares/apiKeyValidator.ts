@@ -7,12 +7,12 @@ export async function apiKeyValidate(req: express.Request | any, res: express.Re
     if (!req.headers['x-api-key']) {
       res.status(401).send('headers x-api-key is missing');
     } else {
-      await apiAuthorized(req);
+      return await apiAuthorized(req);
     }
-    next();
+    //next();
   } catch (error) {
     log.error('authorize error', JSON.stringify(error));
-    res.status(401).end();
+    res.status(401).send(`authorize error: ${JSON.stringify(error)}`);
   }
 
   async function apiAuthorized(req: any) {
